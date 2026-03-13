@@ -1,4 +1,5 @@
 import { createApp, watchEffect } from 'vue';
+import VueDOMPurifyHTML from 'vue-dompurify-html';
 
 import { registerAccessDirective } from '@vben/access';
 import { registerLoadingDirective } from '@vben/common-ui';
@@ -11,6 +12,7 @@ import { useTitle } from '@vueuse/core';
 import { ElLoading } from 'element-plus';
 
 import { $t, setupI18n } from '#/locales';
+import { setupFormCreate } from '#/plugins/form-create';
 
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
@@ -33,6 +35,7 @@ async function bootstrap(namespace: string) {
   //   zIndex: 2000,
   // });
   const app = createApp(App);
+  app.use(VueDOMPurifyHTML);
 
   // 注册Element Plus提供的v-loading指令
   app.directive('loading', ElLoading.directive);
@@ -62,6 +65,9 @@ async function bootstrap(namespace: string) {
   // 配置Motion插件
   const { MotionPlugin } = await import('@vben/plugins/motion');
   app.use(MotionPlugin);
+
+  // formCreate
+  setupFormCreate(app);
 
   // 动态更新标题
   watchEffect(() => {
