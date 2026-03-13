@@ -19,7 +19,51 @@ const SvgDingDingIcon = createIconifyIcon('svg:dingding');
 const SvgTDesignIcon = createIconifyIcon('svg:tdesign-logo');
 const SvgAntdvNextLogoIcon = createIconifyIcon('svg:antdv-next-logo');
 
+/** AI */
+const SvgGptIcon = createIconifyIcon('svg:gpt');
+
+/** 支付 */
+const SvgAlipayPcIcon = createIconifyIcon('svg:alipay-pc');
+const SvgAlipayWapIcon = createIconifyIcon('svg:alipay-wap');
+const SvgAlipayAppIcon = createIconifyIcon('svg:alipay-app');
+const SvgAlipayQrIcon = createIconifyIcon('svg:alipay-qr');
+const SvgAlipayBarIcon = createIconifyIcon('svg:alipay-bar');
+const SvgWxPubIcon = createIconifyIcon('svg:wx-pub');
+const SvgWxLiteIcon = createIconifyIcon('svg:wx-lite');
+const SvgWxAppIcon = createIconifyIcon('svg:wx-app');
+const SvgWxNativeIcon = createIconifyIcon('svg:wx-native');
+const SvgWxBarIcon = createIconifyIcon('svg:wx-bar');
+const SvgWalletIcon = createIconifyIcon('svg:wallet');
+const SvgMockIcon = createIconifyIcon('svg:mock');
+
+/** BPM */
+const SvgBpmRunningIcon = createIconifyIcon('svg:bpm-running');
+const SvgBpmApproveIcon = createIconifyIcon('svg:bpm-approve');
+const SvgBpmRejectIcon = createIconifyIcon('svg:bpm-reject');
+const SvgBpmCancelIcon = createIconifyIcon('svg:bpm-cancel');
+
 export {
+
+  SvgAlipayAppIcon,
+  SvgAlipayBarIcon,
+  SvgAlipayPcIcon,
+  SvgAlipayQrIcon,
+  SvgAlipayWapIcon,
+  SvgMockIcon,
+  SvgWalletIcon,
+  SvgWxAppIcon,
+  SvgWxBarIcon,
+  SvgWxLiteIcon,
+  SvgWxNativeIcon,
+  SvgWxPubIcon,
+
+  SvgBpmApproveIcon,
+  SvgBpmCancelIcon,
+  SvgBpmRejectIcon,
+  SvgBpmRunningIcon,
+
+  SvgGptIcon,
+
   SvgAntdvLogoIcon,
   SvgAntdvNextLogoIcon,
   SvgAvatar1Icon,

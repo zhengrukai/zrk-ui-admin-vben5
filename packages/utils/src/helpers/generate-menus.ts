@@ -87,4 +87,120 @@ function generateMenus(
   return filterTree(menus, (menu) => !!menu.show);
 }
 
-export { generateMenus };
+/**
+ * 转换后端菜单数据为路由数据
+ * @param menuList 后端菜单数据
+ * @param parent 父级菜单
+ * @param nameSet 用于跟踪已使用的 name，防止重复
+ * @returns 路由数据
+ */
+function convertServerMenuToRouteRecordStringComponent(
+  menuList: AppRouteRecordRaw[],
+  parent = '',
+  nameSet: Set<string> = new Set(),
+): RouteRecordStringComponent[] {
+  const menus: RouteRecordStringComponent[] = [];
+  menuList.forEach((menu) => {
+    // 处理外链菜单（顶级或子级）
+    if (isHttpUrl(menu.path)) {
+      // add by 芋艿：如果有 ?_iframe 参数，则作为内嵌页面处理
+      // 如果有 _iframe 参数，则使用 iframeSrc；如果没有，则使用 link
+      const url = new URL(menu.path);
+      let link: string | undefined;
+      let iframeSrc: string | undefined;
+      if (url.searchParams.has('_iframe')) {
+        url.searchParams.delete('_iframe');
+        iframeSrc = url.toString();
+      } else {
+        link = menu.path;
+      }
+
+      const urlMenu: RouteRecordStringComponent = {
+        component: 'IFrameView',
+        meta: {
+          hideInMenu: !menu.visible,
+          icon: menu.icon,
+          iframeSrc,
+          link,
+          order: menu.sort,
+          title: menu.name,
+        },
+        name: menu.name,
+        path: `${menu.id}`,
+      };
+      menus.push(urlMenu);
+      return;
+    } else if (menu.children && menu.parentId === 0) {
+      menu.component = 'BasicLayout';
+    } else if (!menu.children) {
+      menu.component = menu.component as string;
+    }
+    if (menu.component === 'Layout') {
+      menu.component = 'BasicLayout';
+    }
+
+    if (menu.children && menu.parentId !== 0) {
+      menu.component = '';
+    }
+
+    // path
+    if (parent) {
+      menu.path = `${parent}/${menu.path}`;
+    }
+
+    if (!menu.path.startsWith('/')) {
+      menu.path = `/${menu.path}`;
+    }
+
+    // add by 芋艿：防止 name 重复，只有在 name 重复时，才自动添加 id
+    let finalName = menu.componentName || menu.name;
+    if (nameSet.has(finalName)) {
+      finalName = menu.name + menu.id;
+      console.error(`menu name duplicate: ${menu.name}, id: ${menu.id}`, menu);
+    }
+    nameSet.add(finalName);
+
+    // add by 芋艿：处理 menu.component 中的 query 参数
+    // https://doc.vben.pro/guide/essentials/route.html#query
+    let query: Record<string, string> | undefined;
+    // add by 芋艿：防止 component 为 null 时，调用 indexOf 报错；关联
+    if (!menu.component) {
+      menu.component = '';
+    }
+    const queryIndex = menu.component.indexOf('?');
+    if (queryIndex !== -1) {
+      // 提取 query 字符串并解析为对象
+      const queryString = menu.component.slice(queryIndex + 1);
+      query = Object.fromEntries(new URLSearchParams(queryString).entries());
+      // 移除 component 中的 query 部分
+      menu.component = menu.component.slice(0, queryIndex);
+    }
+
+    const buildMenu: RouteRecordStringComponent = {
+      component: menu.component,
+      meta: {
+        hideInMenu: !menu.visible,
+        icon: menu.icon,
+        keepAlive: menu.keepAlive,
+        order: menu.sort,
+        title: menu.name,
+        ...(query && { query }),
+      },
+      name: finalName,
+      path: menu.path,
+    };
+
+    if (menu.children && menu.children.length > 0) {
+      buildMenu.children = convertServerMenuToRouteRecordStringComponent(
+        menu.children,
+        menu.path,
+        nameSet,
+      );
+    }
+
+    menus.push(buildMenu);
+  });
+  return menus;
+}
+
+export { convertServerMenuToRouteRecordStringComponent, generateMenus };

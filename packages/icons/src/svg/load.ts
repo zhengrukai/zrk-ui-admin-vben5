@@ -2,7 +2,11 @@ import type { IconifyIconStructure } from '@vben-core/icons';
 
 import { addIcon } from '@vben-core/icons';
 
-loadSvgIcons();
+let loaded = false;
+if (!loaded) {
+  loadSvgIcons();
+  loaded = true;
+}
 
 function parseSvg(svgData: string): IconifyIconStructure {
   const parser = new DOMParser();

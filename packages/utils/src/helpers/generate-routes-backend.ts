@@ -52,7 +52,8 @@ async function generateRoutesByBackend(
       });
     }
 
-    return routes;
+    // 合并静态路由和动态路由
+    return [...options.routes, ...routes];
   } catch (error) {
     console.error(error);
     throw error;

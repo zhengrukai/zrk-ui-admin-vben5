@@ -1,21 +1,38 @@
 import type {
   // 系列类型的定义后缀都为 SeriesOption
   BarSeriesOption,
+  GaugeSeriesOption,
   LineSeriesOption,
+  MapSeriesOption,
 } from 'echarts/charts';
 import type {
   DatasetComponentOption,
+  DataZoomComponentOption,
+  GeoComponentOption,
   GridComponentOption,
   // 组件类型的定义后缀都为 ComponentOption
   TitleComponentOption,
   TooltipComponentOption,
+  VisualMapComponentOption,
 } from 'echarts/components';
 import type { ComposeOption } from 'echarts/core';
 
-import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts';
+import {
+  BarChart,
+  FunnelChart,
+  GaugeChart,
+  LineChart,
+  MapChart,
+  PieChart,
+  RadarChart
+} from 'echarts/charts';
 import {
   // 数据集组件
   DatasetComponent,
+  DataZoomComponent,
+  DataZoomInsideComponent,
+  DataZoomSliderComponent,
+  GeoComponent,
   GridComponent,
   LegendComponent,
   TitleComponent,
@@ -23,6 +40,7 @@ import {
   TooltipComponent,
   // 内置数据转换器组件 (filter, sort)
   TransformComponent,
+  VisualMapComponent,
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import {
@@ -36,10 +54,15 @@ import { CanvasRenderer } from 'echarts/renderers';
 export type ECOption = ComposeOption<
   | BarSeriesOption
   | DatasetComponentOption
+  | DataZoomComponentOption
+  | GaugeSeriesOption
+  | GeoComponentOption
   | GridComponentOption
   | LineSeriesOption
+  | MapSeriesOption
   | TitleComponentOption
   | TooltipComponentOption
+  | VisualMapComponentOption
 >;
 
 // 注册必须的组件
@@ -50,15 +73,23 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   DatasetComponent,
+  DataZoomComponent,
+  DataZoomInsideComponent,
+  DataZoomSliderComponent,
   TransformComponent,
   BarChart,
   LineChart,
+  FunnelChart,
+  GaugeChart,
   LabelLayout,
   LegacyGridContainLabel,
   UniversalTransition,
   CanvasRenderer,
   LegendComponent,
   ToolboxComponent,
+  VisualMapComponent,
+  MapChart,
+  GeoComponent,
 ]);
 
 export default echarts;
