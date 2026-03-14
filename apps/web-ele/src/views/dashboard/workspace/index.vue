@@ -25,63 +25,44 @@ import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 const userStore = useUserStore();
 
-// 这是一个示例数据，实际项目中需要根据实际情况进行调整
 // url 也可以是内部路由，在 navTo 方法中识别处理，进行内部跳转
 // 例如：url: /dashboard/workspace
 const projectItems: WorkbenchProjectItem[] = [
   {
-    color: '',
-    content: '不要等待机会，而要创造机会。',
-    date: '2021-04-01',
-    group: '开源组',
-    icon: 'carbon:logo-github',
-    title: 'Github',
-    url: 'https://github.com',
+    color: '#ff4d4f',
+    content: 'github.com/zhengrukai/zrk-mall-uniapp',
+    date: '2026-xx-xx',
+    group: 'Vue3 + uniapp 商城手机端',
+    icon: 'icon-park-outline:mall-bag',
+    title: 'zrk-mall-uniapp',
+    url: 'github.com/zhengrukai/zrk-mall-uniapp',
   },
   {
-    color: '#3fb27f',
-    content: '现在的你决定将来的你。',
-    date: '2021-04-01',
-    group: '算法组',
-    icon: 'ion:logo-vue',
-    title: 'Vue',
-    url: 'https://vuejs.org',
+    color: '#1890ff',
+    content: 'github.com/zhengrukai/zrk-cloud',
+    date: '2026-01-01',
+    group: 'Spring Cloud 微服务架构',
+    icon: 'material-symbols:cloud-outline',
+    title: 'zrk-cloud',
+    url: 'https://github.com/zhengrukai/zrk-cloud',
   },
   {
     color: '#e18525',
-    content: '没有什么才能比努力更重要。',
-    date: '2021-04-01',
-    group: '上班摸鱼',
-    icon: 'ion:logo-html5',
-    title: 'Html5',
-    url: 'https://developer.mozilla.org/zh-CN/docs/Web/HTML',
+    content: 'github.com/zhengrukai/zrk-ui-admin-vben5',
+    date: '2026-03-01',
+    group: 'Vue3 + vben5 管理后台',
+    icon: 'devicon:antdesign',
+    title: 'zrk-ui-admin-vben5',
+    url: 'https://github.com/zhengrukai/zrk-ui-admin-vben5',
   },
   {
-    color: '#bf0c2c',
-    content: '热情和欲望可以突破一切难关。',
-    date: '2021-04-01',
-    group: 'UI',
-    icon: 'ion:logo-angular',
-    title: 'Angular',
-    url: 'https://angular.io',
-  },
-  {
-    color: '#00d8ff',
-    content: '健康的身体是实现目标的基石。',
-    date: '2021-04-01',
-    group: '技术牛',
-    icon: 'bx:bxl-react',
-    title: 'React',
-    url: 'https://reactjs.org',
-  },
-  {
-    color: '#EBD94E',
-    content: '路是走出来的，而不是空想出来的。',
-    date: '2021-04-01',
-    group: '架构组',
-    icon: 'ion:logo-javascript',
-    title: 'Js',
-    url: 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript',
+    color: '#2979ff',
+    content: 'github.com/zhengrukai/zrk-ui-admin-uniapp',
+    date: '2026-xx-xx',
+    group: 'Vue3 + uniapp 管理手机端',
+    icon: 'ant-design:mobile',
+    title: 'zrk-ui-admin-uniapp',
+    url: 'https://github.com/zhengrukai/zrk-ui-admin-uniapp',
   },
 ];
 
@@ -93,69 +74,57 @@ const quickNavItems: WorkbenchQuickNavItem[] = [
     title: '首页',
     url: '/',
   },
+  // {
+  //   color: '#ff6b6b',
+  //   icon: 'ep:shop',
+  //   title: '商城中心',
+  //   url: '/mall',
+  // },
   {
-    color: '#bf0c2c',
-    icon: 'ion:grid-outline',
-    title: '仪表盘',
-    url: '/dashboard',
-  },
-  {
-    color: '#e18525',
-    icon: 'ion:layers-outline',
-    title: '组件',
-    url: '/demos/features/icons',
+    color: '#7c3aed',
+    icon: 'tabler:ai',
+    title: 'AI 大模型',
+    url: '/ai',
   },
   {
     color: '#3fb27f',
-    icon: 'ion:settings-outline',
-    title: '系统管理',
-    url: '/demos/features/login-expired', // 这里的 URL 是示例，实际项目中需要根据实际情况进行调整
+    icon: 'simple-icons:erpnext',
+    title: 'ERP 系统',
+    url: '/erp',
   },
-  {
-    color: '#4daf1bc9',
-    icon: 'ion:key-outline',
-    title: '权限管理',
-    url: '/demos/access/page-control',
-  },
-  {
-    color: '#00d8ff',
-    icon: 'ion:bar-chart-outline',
-    title: '图表',
-    url: '/analytics',
-  },
+  // {
+  //   color: '#4daf1bc9',
+  //   icon: 'simple-icons:civicrm',
+  //   title: 'CRM 系统',
+  //   url: '/crm',
+  // },
+  // {
+  //   color: '#1a73e8',
+  //   icon: 'fa-solid:hdd',
+  //   title: 'IoT 物联网',
+  //   url: '/iot',
+  // },
 ];
 
 const todoItems = ref<WorkbenchTodoItem[]>([
   {
     completed: false,
-    content: `审查最近提交到Git仓库的前端代码，确保代码质量和规范。`,
-    date: '2024-07-30 11:00:00',
-    title: '审查前端代码提交',
-  },
-  {
-    completed: true,
-    content: `检查并优化系统性能，降低CPU使用率。`,
-    date: '2024-07-30 11:00:00',
-    title: '系统性能优化',
+    content: `系统支持 JDK 17/21，Vue 3`,
+    date: '2026-03-14 09:30:00',
+    title: '技术兼容性',
   },
   {
     completed: false,
-    content: `进行系统安全检查，确保没有安全漏洞或未授权的访问。 `,
-    date: '2024-07-30 11:00:00',
-    title: '安全检查',
+    content: `后端提供 Spring Boot 3.2 + Cloud 双架构`,
+    date: '2026-03-14 09:30:00',
+    title: '架构灵活性',
   },
   {
     completed: false,
-    content: `更新项目中的所有npm依赖包，确保使用最新版本。`,
-    date: '2024-07-30 11:00:00',
-    title: '更新项目依赖',
-  },
-  {
-    completed: false,
-    content: `修复用户报告的页面UI显示问题，确保在不同浏览器中显示一致。 `,
-    date: '2024-07-30 11:00:00',
-    title: '修复UI显示问题',
-  },
+    content: `全部开源，个人与企业可 100% 直接使用，无需授权`,
+    date: '2026-03-14 09:30:00',
+    title: '开源免授权',
+  }
 ]);
 const trendItems: WorkbenchTrendItem[] = [
   {
@@ -239,7 +208,7 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
       :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
     >
       <template #title>
-        早安, {{ userStore.userInfo?.realName }}, 开始您一天的工作吧！
+        早安, {{ userStore.userInfo?.nickname }}, 开始您一天的工作吧！
       </template>
       <template #description> 今日晴，20℃ - 32℃！ </template>
     </WorkbenchHeader>
