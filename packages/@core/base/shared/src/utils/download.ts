@@ -49,11 +49,11 @@ export async function downloadFileFromUrl({
  * @returns
  */
 export function downloadImageByCanvas({
-                                        url,
-                                        canvasWidth,
-                                        canvasHeight,
-                                        drawWithImageSize = true,
-                                      }: {
+  url,
+  canvasWidth,
+  canvasHeight,
+  drawWithImageSize = true,
+}: {
   canvasHeight?: number;
   canvasWidth?: number;
   drawWithImageSize?: boolean;

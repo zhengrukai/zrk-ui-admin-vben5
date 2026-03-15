@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="vben-contributors vp-doc">
+  <div class="vp-doc vben-contributors">
     <p>Contributors</p>
     <a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
       <img

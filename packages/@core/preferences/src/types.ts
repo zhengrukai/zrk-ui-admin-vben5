@@ -53,8 +53,6 @@ interface AppPreferences {
   dynamicTitle: boolean;
   /** 是否开启检查更新 */
   enableCheckUpdates: boolean;
-  /** 是否显示复制偏好设置按钮 */
-  enableCopyPreferences: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
   /**
@@ -172,8 +170,6 @@ interface SidebarPreferences {
   collapsedShowTitle: boolean;
   /** 侧边栏折叠宽度 */
   collapseWidth: number;
-  /** 侧边栏菜单拖拽 */
-  draggable: boolean;
   /** 侧边栏是否可见 */
   enable: boolean;
   /** 菜单自动展开状态 */
@@ -257,8 +253,6 @@ interface ThemePreferences {
   semiDarkHeader: boolean;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
   semiDarkSidebar: boolean;
-  /** 是否开启半深色子菜单（只在theme='light'时生效） */
-  semiDarkSidebarSub: boolean;
 }
 
 interface TransitionPreferences {

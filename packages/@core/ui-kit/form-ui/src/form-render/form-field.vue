@@ -113,7 +113,9 @@ const shouldRequired = computed(() => {
   }
 
   if (isString(currentRules.value)) {
-    return ['required', 'selectRequired'].includes(currentRules.value);
+    return ['mobileRequired', 'required', 'selectRequired'].includes(
+      currentRules.value,
+    );
   }
 
   let isOptional = currentRules?.value?.isOptional?.();
@@ -308,7 +310,7 @@ onUnmounted(() => {
           cn(
             'flex leading-6',
             {
-              'mr-2 shrink-0 justify-end': !isVertical,
+              'mr-2 flex-shrink-0 justify-end': !isVertical,
               'mb-1 flex-row': isVertical,
             },
             labelClass,
@@ -324,7 +326,7 @@ onUnmounted(() => {
           <VbenRenderContent :content="label" />
         </template>
       </FormLabel>
-      <div class="flex-auto overflow-hidden p-px">
+      <div class="flex-auto overflow-hidden p-[1px]">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
           <FormControl :class="cn(controlClass)">
             <slot
@@ -381,10 +383,10 @@ onUnmounted(() => {
           <div v-if="suffix" class="ml-1">
             <VbenRenderContent :content="suffix" />
           </div>
+          <FormDescription v-if="description" class="ml-1">
+            <VbenRenderContent :content="description" />
+          </FormDescription>
         </div>
-        <FormDescription v-if="description" class="text-xs">
-          <VbenRenderContent :content="description" />
-        </FormDescription>
 
         <Transition name="slide-up" v-if="!compact">
           <FormMessage class="absolute" />

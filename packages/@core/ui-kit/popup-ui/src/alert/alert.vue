@@ -147,7 +147,7 @@ async function handleOpenChange(val: boolean) {
       :class="
         cn(
           containerClass,
-          'inset-x-0 mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:w-[520px] sm:max-w-[80%] sm:rounded-(--radius)',
+          'left-0 right-0 mx-auto flex max-h-[80%] flex-col p-0 duration-300 sm:w-[520px] sm:max-w-[80%] sm:rounded-[var(--radius)]',
           {
             'border border-border': bordered,
             'shadow-3xl': !bordered,

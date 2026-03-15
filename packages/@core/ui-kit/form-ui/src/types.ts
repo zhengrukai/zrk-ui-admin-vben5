@@ -68,6 +68,8 @@ export type FormActions = FormContext<GenericObject>;
 export type CustomRenderType = (() => Component | string) | string;
 
 export type FormSchemaRuleType =
+  | 'mobile'
+  | 'mobileRequired'
   | 'required'
   | 'selectRequired'
   | null

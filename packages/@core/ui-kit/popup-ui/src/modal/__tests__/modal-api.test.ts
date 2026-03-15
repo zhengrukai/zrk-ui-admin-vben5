@@ -12,20 +12,21 @@ vi.mock('@vben-core/shared/store', () => {
         return this._state;
       }
       private _state: ModalState;
-      private subscribers: Array<(state: ModalState) => void> = [];
 
-      constructor(initialState: ModalState) {
+      private options: any;
+
+      constructor(initialState: ModalState, options: any) {
         this._state = initialState;
+        this.options = options;
+      }
+
+      batch(cb: () => void) {
+        cb();
       }
 
       setState(fn: (prev: ModalState) => ModalState) {
         this._state = fn(this._state);
-        this.subscribers.forEach((sub) => sub(this._state));
-      }
-
-      subscribe(fn: (state: ModalState) => void) {
-        this.subscribers.push(fn);
-        return { unsubscribe: () => {} };
+        this.options.onUpdate();
       }
     },
   };

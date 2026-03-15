@@ -4,7 +4,7 @@ import { interopDefault } from '../util';
 
 export async function test(): Promise<Linter.Config[]> {
   const [pluginTest, pluginNoOnlyTests] = await Promise.all([
-    interopDefault(import('@vitest/eslint-plugin')),
+    interopDefault(import('eslint-plugin-vitest')),
     // @ts-expect-error - no types
     interopDefault(import('eslint-plugin-no-only-tests')),
   ] as const);

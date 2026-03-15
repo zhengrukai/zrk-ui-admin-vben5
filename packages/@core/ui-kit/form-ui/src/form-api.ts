@@ -75,16 +75,19 @@ export class FormApi {
 
     const defaultState = getDefaultState();
 
-    this.store = new Store<VbenFormProps>({
-      ...defaultState,
-      ...storeState,
-    });
-
-    this.store.subscribe((state) => {
-      this.prevState = this.state;
-      this.state = state;
-      this.updateState();
-    });
+    this.store = new Store<VbenFormProps>(
+      {
+        ...defaultState,
+        ...storeState,
+      },
+      {
+        onUpdate: () => {
+          this.prevState = this.state;
+          this.state = this.store.state;
+          this.updateState();
+        },
+      },
+    );
 
     this.state = this.store.state;
     this.stateHandler = new StateHandler();
@@ -287,6 +290,18 @@ export class FormApi {
     }
   }
 
+  /**
+   * 设置表单禁用状态：用于非 Modal 中使用 Form 时，需要 Form 自己控制禁用状态
+   * @author 芋道源码
+   * @param disabled 是否禁用
+   */
+  setDisabled(disabled: boolean) {
+    this.setState((prev) => ({
+      ...prev,
+      commonConfig: { ...prev.commonConfig, disabled },
+    }));
+  }
+
   async setFieldValue(field: string, value: any, shouldValidate?: boolean) {
     const form = await this.getForm();
     form.setFieldValue(field, value, shouldValidate);
@@ -294,6 +309,18 @@ export class FormApi {
 
   setLatestSubmissionValues(values: null | Recordable<any>) {
     this.latestSubmissionValues = { ...toRaw(values) };
+  }
+
+  /**
+   * 设置表单提交按钮的加载状态：用于非 Modal 中使用 Form 时，需要 Form 自己控制 loading 状态
+   * @author 芋道源码
+   * @param loading 是否加载中
+   */
+  setLoading(loading: boolean) {
+    this.setState((prev) => ({
+      ...prev,
+      submitButtonOptions: { ...prev.submitButtonOptions, loading },
+    }));
   }
 
   setState(

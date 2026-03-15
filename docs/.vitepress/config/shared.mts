@@ -12,7 +12,7 @@ import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from '@nolebase/vitepress-plugin-git-changelog/vite';
-import tailwindcss from '@tailwindcss/vite';
+import tailwind from 'tailwindcss';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
 import {
   groupIconMdPlugin,
@@ -57,7 +57,10 @@ export const shared = defineConfig({
     },
     css: {
       postcss: {
-        plugins: [postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] })],
+        plugins: [
+          tailwind(),
+          postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
+        ],
       },
       preprocessorOptions: {
         scss: {
@@ -69,7 +72,6 @@ export const shared = defineConfig({
       stringify: true,
     },
     plugins: [
-      tailwindcss(),
       GitChangelog({
         mapAuthors: [
           {

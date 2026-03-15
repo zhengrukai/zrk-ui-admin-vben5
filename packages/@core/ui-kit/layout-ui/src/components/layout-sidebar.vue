@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, onUnmounted, shallowRef, useSlots, watchEffect } from 'vue';
+import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 
-import { useSidebarDrag } from '../hooks/use-sidebar-drag';
 import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
 
 interface Props {
@@ -78,10 +77,7 @@ interface Props {
    * 主题
    */
   theme: string;
-  /**
-   * 子主题
-   */
-  themeSub: string;
+
   /**
    * 宽度
    */
@@ -108,8 +104,7 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 0,
 });
 
-const emit = defineEmits<{ leave: []; 'update:width': [value: number] }>();
-const draggable = defineModel<boolean>('draggable');
+const emit = defineEmits<{ leave: [] }>();
 const collapse = defineModel<boolean>('collapse');
 const extraCollapse = defineModel<boolean>('extraCollapse');
 const expandOnHovering = defineModel<boolean>('expandOnHovering');
@@ -119,8 +114,8 @@ const extraVisible = defineModel<boolean>('extraVisible');
 const isLocked = useScrollLock(document.body);
 const slots = useSlots();
 
-const asideRef = shallowRef<HTMLElement | null>(null);
-const dragBarRef = shallowRef<HTMLElement | null>(null);
+// @ts-expect-error unused
+const asideRef = shallowRef<HTMLDivElement | null>();
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
@@ -157,9 +152,9 @@ const extraTitleStyle = computed((): CSSProperties => {
 });
 
 const contentWidthStyle = computed((): CSSProperties => {
-  const { fixedExtra, isSidebarMixed, mixedWidth } = props;
+  const { collapseWidth, fixedExtra, isSidebarMixed, mixedWidth } = props;
   if (isSidebarMixed && fixedExtra) {
-    return { width: `${mixedWidth}px` };
+    return { width: `${collapse.value ? collapseWidth : mixedWidth}px` };
   }
   return {};
 });
@@ -202,24 +197,19 @@ watchEffect(() => {
 });
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
-  const {
-    collapseWidth,
-    extraWidth,
-    mixedWidth,
-    fixedExtra,
-    isSidebarMixed,
-    show,
-    width,
-  } = props;
+  const { extraWidth, fixedExtra, isSidebarMixed, show, width } = props;
 
   let widthValue =
     width === 0
       ? '0px'
       : `${width + (isSidebarMixed && fixedExtra && extraVisible.value ? extraWidth : 0)}px`;
 
+  const { collapseWidth } = props;
+
   if (isHiddenDom && expandOnHovering.value && !expandOnHover.value) {
-    widthValue = isSidebarMixed ? `${mixedWidth}px` : `${collapseWidth}px`;
+    widthValue = `${collapseWidth}px`;
   }
+
   return {
     ...(widthValue === '0px' ? { overflow: 'hidden' } : {}),
     flex: `0 0 ${widthValue}`,
@@ -261,40 +251,6 @@ function handleMouseleave() {
   collapse.value = true;
   extraVisible.value = false;
 }
-
-const { startDrag, endDrag } = useSidebarDrag();
-
-const handleDragSidebar = (e: MouseEvent) => {
-  const { isSidebarMixed, collapseWidth, width } = props;
-  const minLimit = isSidebarMixed ? width + collapseWidth : collapseWidth;
-  const maxLimit = isSidebarMixed ? width + 320 : 320;
-
-  startDrag(
-    e,
-    {
-      min: minLimit,
-      max: maxLimit,
-    },
-    {
-      target: asideRef.value,
-      dragBar: dragBarRef.value,
-    },
-    (newWidth) => {
-      if (isSidebarMixed) {
-        emit('update:width', newWidth - width);
-        extraCollapse.value = collapse.value =
-          newWidth - width <= collapseWidth;
-      } else {
-        emit('update:width', newWidth);
-        collapse.value = extraCollapse.value = newWidth <= collapseWidth;
-      }
-    },
-  );
-};
-
-onUnmounted(() => {
-  endDrag();
-});
 </script>
 
 <template>
@@ -305,48 +261,40 @@ onUnmounted(() => {
     class="h-full transition-all duration-150"
   ></div>
   <aside
-    ref="asideRef"
+    :class="[
+      theme,
+      {
+        'bg-sidebar-deep': isSidebarMixed,
+        'border-r border-border bg-sidebar': !isSidebarMixed,
+      },
+    ]"
     :style="style"
-    class="fixed top-0 left-0 h-full transition-all duration-150"
+    class="fixed left-0 top-0 h-full transition-all duration-150"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
-    <div
-      class="h-full"
-      :class="[
-        theme,
-        {
-          'bg-sidebar-deep': isSidebarMixed,
-          'border-r border-border bg-sidebar': !isSidebarMixed,
-        },
-      ]"
-      :style="{ width: `${width}px` }"
-    >
-      <SidebarFixedButton
-        v-if="!collapse && !isSidebarMixed && showFixedButton"
-        v-model:expand-on-hover="expandOnHover"
-      />
-      <div v-if="slots.logo" :style="headerStyle">
-        <slot name="logo"></slot>
-      </div>
-      <VbenScrollbar :style="contentStyle" shadow shadow-border>
-        <slot></slot>
-      </VbenScrollbar>
-
-      <div :style="collapseStyle"></div>
-      <SidebarCollapseButton
-        v-if="showCollapseButton && !isSidebarMixed"
-        v-model:collapsed="collapse"
-      />
+    <SidebarFixedButton
+      v-if="!collapse && !isSidebarMixed && showFixedButton"
+      v-model:expand-on-hover="expandOnHover"
+    />
+    <div v-if="slots.logo" :style="headerStyle">
+      <slot name="logo"></slot>
     </div>
+    <VbenScrollbar :style="contentStyle" shadow shadow-border>
+      <slot></slot>
+    </VbenScrollbar>
+
+    <div :style="collapseStyle"></div>
+    <SidebarCollapseButton
+      v-if="showCollapseButton && !isSidebarMixed"
+      v-model:collapsed="collapse"
+    />
     <div
       v-if="isSidebarMixed"
-      :class="[
-        themeSub,
-        {
-          'border-l': extraVisible,
-        },
-      ]"
+      ref="asideRef"
+      :class="{
+        'border-l': extraVisible,
+      }"
       :style="extraStyle"
       class="fixed top-0 h-full overflow-hidden border-r border-border bg-sidebar transition-all duration-200"
     >
@@ -371,11 +319,5 @@ onUnmounted(() => {
         <slot name="extra"></slot>
       </VbenScrollbar>
     </div>
-    <div
-      v-if="draggable"
-      ref="dragBarRef"
-      class="absolute inset-y-0 -right-px z-1000 w-[2px] cursor-col-resize hover:bg-primary"
-      @mousedown="handleDragSidebar"
-    ></div>
   </aside>
 </template>

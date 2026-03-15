@@ -93,8 +93,8 @@ const isSeparator = computed(() => {
 });
 const separatorBg = computed(() => {
   return !separator.value ||
-    isBoolean(separator.value) ||
-    !separator.value.backgroundColor
+  isBoolean(separator.value) ||
+  !separator.value.backgroundColor
     ? undefined
     : separator.value.backgroundColor;
 });
@@ -361,7 +361,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div :class="cn('h-full rounded-md bg-card', className)">
+  <div :class="cn('bg-card h-full rounded-md', className)">
     <VxeGrid
       ref="gridRef"
       :class="
@@ -379,7 +379,9 @@ onUnmounted(() => {
       <!-- 左侧操作区域或者title -->
       <template v-if="showToolbar" #toolbar-actions="slotProps">
         <slot v-if="showTableTitle" name="table-title">
-          <div class="flex-center gap-1 text-[1rem] font-bold">
+          <div
+            class="flex items-center justify-center gap-1 text-[1rem] font-bold"
+          >
             {{ tableTitle }}
             <VbenHelpTooltip v-if="tableTitleHelp">
               {{ tableTitleHelp }}
@@ -417,7 +419,7 @@ onUnmounted(() => {
           v-show="showSearchForm !== false"
           :class="
             cn(
-              'relative rounded-sm py-3',
+              'relative rounded py-3',
               isCompactForm
                 ? isSeparator
                   ? 'pb-8'
@@ -459,7 +461,7 @@ onUnmounted(() => {
             :style="{
               ...(separatorBg ? { backgroundColor: separatorBg } : undefined),
             }"
-            class="absolute bottom-1 -left-2 z-100 h-2 w-[calc(100%+1rem)] overflow-hidden bg-background-deep md:bottom-2 md:h-3"
+            class="bg-background-deep z-100 absolute -left-2 bottom-1 h-2 w-[calc(100%+1rem)] overflow-hidden md:bottom-2 md:h-3"
           ></div>
         </div>
       </template>

@@ -218,7 +218,6 @@ const defaultPreferences: Preferences = {
     dynamicTitle: true,
     enableCheckUpdates: true,
     enablePreferences: true,
-    enableCopyPreferences: true,
     enableRefreshToken: false,
     isMobile: false,
     layout: 'sidebar-nav',
@@ -376,8 +375,6 @@ interface AppPreferences {
   enableCheckUpdates: boolean;
   /** 是否显示偏好设置 */
   enablePreferences: boolean;
-  /** 是否显示复制偏好设置按钮 */
-  enableCopyPreferences: boolean;
   /**
    * @zh_CN 是否开启refreshToken
    */

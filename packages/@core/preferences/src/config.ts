@@ -20,7 +20,6 @@ const defaultPreferences: Preferences = {
     defaultHomePath: '/analytics',
     dynamicTitle: true,
     enableCheckUpdates: true,
-    enableCopyPreferences: true,
     enablePreferences: true,
     enableRefreshToken: false,
     enableStickyPreferencesNavigationBar: true,
@@ -44,7 +43,7 @@ const defaultPreferences: Preferences = {
   copyright: {
     companyName: 'Vben',
     companySiteLink: 'https://www.vben.pro',
-    date: '2024',
+    date: '2026',
     enable: true,
     icp: '',
     icpLink: '',
@@ -86,7 +85,6 @@ const defaultPreferences: Preferences = {
     collapsedButton: true,
     collapsedShowTitle: false,
     collapseWidth: 60,
-    draggable: true,
     enable: true,
     expandOnHover: true,
     extraCollapse: false,
@@ -123,7 +121,6 @@ const defaultPreferences: Preferences = {
     fontSize: 16,
     semiDarkHeader: false,
     semiDarkSidebar: false,
-    semiDarkSidebarSub: false,
   },
   transition: {
     enable: true,

@@ -1,4 +1,4 @@
-import { consola } from '@vben/node-utils';
+import { colors, consola } from '@vben/node-utils';
 
 import { cac } from 'cac';
 
@@ -13,6 +13,12 @@ try {
     .action(async (command: string) => {
       run({ command });
     });
+
+  // Invalid command
+  turboRun.on('command:*', () => {
+    consola.error(colors.red('Invalid command!'));
+    process.exit(1);
+  });
 
   turboRun.usage('turbo-run');
   turboRun.help();

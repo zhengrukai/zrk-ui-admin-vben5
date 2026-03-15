@@ -1,3 +1,4 @@
+export { default as AuthenticationAuthTitle } from './auth-title.vue';
 export { default as AuthenticationCodeLogin } from './code-login.vue';
 export { default as AuthenticationForgetPassword } from './forget-password.vue';
 export { default as AuthenticationLoginExpiredModal } from './login-expired-modal.vue';

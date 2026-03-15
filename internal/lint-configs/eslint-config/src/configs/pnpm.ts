@@ -3,15 +3,18 @@ import type { Linter } from 'eslint';
 import { interopDefault } from '../util';
 
 export async function pnpm(): Promise<Linter.Config[]> {
-  const [pluginPnpm, parserPnpm] = await Promise.all([
+  const [pluginPnpm, parserPnpm, parserJsonc] = await Promise.all([
     interopDefault(import('eslint-plugin-pnpm')),
     interopDefault(import('yaml-eslint-parser')),
+    interopDefault(import('jsonc-eslint-parser')),
   ] as const);
 
   return [
     {
       files: ['package.json', '**/package.json'],
-      language: 'jsonc/x',
+      languageOptions: {
+        parser: parserJsonc,
+      },
       plugins: {
         pnpm: pluginPnpm,
       },

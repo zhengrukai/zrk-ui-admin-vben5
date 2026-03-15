@@ -1,6 +1,10 @@
 import type { Linter } from 'eslint';
 
-const restrictedImportIgnores = ['**/vite.config.mts'];
+const restrictedImportIgnores = [
+  '**/vite.config.mts',
+  '**/tailwind.config.mjs',
+  '**/postcss.config.mjs',
+];
 
 const customConfig: Linter.Config[] = [
   // shadcn-ui 内部组件是自动生成的，不做太多限制
@@ -135,7 +139,7 @@ const customConfig: Linter.Config[] = [
   },
   // 后端模拟代码，不需要太多规则
   {
-    files: ['apps/backend-mock/**/**', 'docs/**/**'],
+    files: ['docs/**/**'],
     rules: {
       '@typescript-eslint/no-extraneous-class': 'off',
       'n/no-extraneous-import': 'off',

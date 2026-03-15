@@ -60,11 +60,6 @@ const sidebarTheme = computed(() => {
   return dark ? 'dark' : 'light';
 });
 
-const sidebarThemeSub = computed(() => {
-  const dark = isDark.value || preferences.theme.semiDarkSidebarSub;
-  return dark ? 'dark' : 'light';
-});
-
 const headerTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkHeader;
   return dark ? 'dark' : 'light';
@@ -138,11 +133,11 @@ const {
 function wrapperMenus(menus: MenuRecordRaw[], deep: boolean = true) {
   return deep
     ? mapTree(menus, (item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
-      })
+      return { ...cloneDeep(item), name: $t(item.name) };
+    })
     : menus.map((item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
-      });
+      return { ...cloneDeep(item), name: $t(item.name) };
+    });
 }
 
 function toggleSidebar() {
@@ -234,7 +229,6 @@ const headerSlots = computed(() => {
     :header-visible="preferences.header.enable"
     :is-mobile="preferences.app.isMobile"
     :layout="layout"
-    :sidebar-draggable="preferences.sidebar.draggable"
     :sidebar-collapse="preferences.sidebar.collapsed"
     :sidebar-collapse-show-title="preferences.sidebar.collapsedShowTitle"
     :sidebar-enable="sidebarVisible"
@@ -246,7 +240,6 @@ const headerSlots = computed(() => {
     :sidebar-hidden="preferences.sidebar.hidden"
     :sidebar-mixed-width="preferences.sidebar.mixedWidth"
     :sidebar-theme="sidebarTheme"
-    :sidebar-theme-sub="sidebarThemeSub"
     :sidebar-width="preferences.sidebar.width"
     :side-collapse-width="preferences.sidebar.collapseWidth"
     :tabbar-enable="preferences.tabbar.enable"
@@ -267,9 +260,6 @@ const headerSlots = computed(() => {
     @update:sidebar-extra-collapse="
       (value: boolean) =>
         updatePreferences({ sidebar: { extraCollapse: value } })
-    "
-    @update:sidebar-width="
-      (value: number) => updatePreferences({ sidebar: { width: value } })
     "
   >
     <!-- logo -->
@@ -365,7 +355,7 @@ const headerSlots = computed(() => {
         :collapse="preferences.sidebar.extraCollapse"
         :menus="wrapperMenus(extraMenus)"
         :rounded="isMenuRounded"
-        :theme="sidebarThemeSub"
+        :theme="sidebarTheme"
       />
     </template>
     <template #side-extra-title>
@@ -421,7 +411,7 @@ const headerSlots = computed(() => {
 
       <template v-if="preferencesButtonPosition.fixed">
         <Preferences
-          class="fixed top-1/2 right-0 z-100 -translate-y-1/2 transform"
+          class="z-100 fixed right-0 top-1/2 -translate-y-1/2 transform"
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>

@@ -3,11 +3,12 @@
   "style": "new-york",
   "typescript": true,
   "tailwind": {
-    "config": "",
+    "config": "tailwind.config.mjs",
     "css": "src/assets/index.css",
     "baseColor": "slate",
     "cssVariables": true
   },
+  "framework": "vite",
   "aliases": {
     "components": "@vben-core/shadcn-ui/components",
     "utils": "@vben-core/shared/utils"

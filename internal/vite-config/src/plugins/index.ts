@@ -8,7 +8,6 @@ import type {
 } from '../typing';
 
 import viteVueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
-import tailwindcss from '@tailwindcss/vite';
 import viteVue from '@vitejs/plugin-vue';
 import viteVueJsx from '@vitejs/plugin-vue-jsx';
 import { visualizer as viteVisualizerPlugin } from 'rollup-plugin-visualizer';
@@ -26,7 +25,6 @@ import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
 import { viteNitroMockPlugin } from './nitro-mock';
 import { vitePrintPlugin } from './print';
-import { viteTailwindReferencePlugin } from './tailwind-reference';
 import { viteVxeTableImportsPlugin } from './vxe-table';
 
 /**
@@ -62,8 +60,6 @@ async function loadCommonPlugins(
           },
         }),
         viteVueJsx(),
-        viteTailwindReferencePlugin(),
-        tailwindcss(),
       ],
     },
 
