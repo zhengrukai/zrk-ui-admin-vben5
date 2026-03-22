@@ -7,10 +7,10 @@ import { isFunction } from '@vben/utils';
 import axios from 'axios';
 
 export const defaultResponseInterceptor = ({
-  codeField = 'code',
-  dataField = 'data',
-  successCode = 0,
-}: {
+                                             codeField = 'code',
+                                             dataField = 'data',
+                                             successCode = 0,
+                                           }: {
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
@@ -45,12 +45,12 @@ export const defaultResponseInterceptor = ({
 };
 
 export const authenticateResponseInterceptor = ({
-  client,
-  doReAuthenticate,
-  doRefreshToken,
-  enableRefreshToken,
-  formatToken,
-}: {
+                                                  client,
+                                                  doReAuthenticate,
+                                                  doRefreshToken,
+                                                  enableRefreshToken,
+                                                  formatToken,
+                                                }: {
   client: RequestClient;
   doReAuthenticate: () => Promise<void>;
   doRefreshToken: () => Promise<string>;
@@ -59,9 +59,9 @@ export const authenticateResponseInterceptor = ({
 }): ResponseInterceptorConfig => {
   return {
     rejected: async (error) => {
-      const { config, response } = error;
+      const { config, response, data: responseData } = error;
       // 如果不是 401 错误，直接抛出异常
-      if (response?.status !== 401) {
+      if (response?.status !== 401 && responseData?.code !== 401) {
         throw error;
       }
       // 判断是否启用了 refreshToken 功能
@@ -130,8 +130,9 @@ export const errorMessageResponseInterceptor = (
         return Promise.reject(error);
       }
 
-      let errorMessage: string;
-      const status = error?.response?.status;
+      let errorMessage = '';
+      const status =
+        error?.code || error?.response?.data?.code || error?.response?.status;
 
       switch (status) {
         case 400: {

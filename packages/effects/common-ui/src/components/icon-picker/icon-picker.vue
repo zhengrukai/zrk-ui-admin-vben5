@@ -21,6 +21,11 @@ import {
   VbenIcon,
   VbenIconButton,
   VbenPopover,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@vben-core/shadcn-ui';
 import { isFunction } from '@vben-core/shared/utils';
 
@@ -47,6 +52,8 @@ interface Props {
   /** 图标样式 */
   iconClass?: string;
   type?: 'icon' | 'input';
+  /** 可选的图标集列表 */
+  prefixes?: Array<{ label: string; value: string }>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -59,15 +66,38 @@ const props = withDefaults(defineProps<Props>(), {
   modelValueProp: 'modelValue',
   inputComponent: undefined,
   type: 'input',
+  prefixes: () => [
+    { label: 'Ant Design', value: 'ant-design' },
+    { label: 'Element Plus', value: 'ep' },
+    { label: 'Font Awesome', value: 'fa' },
+    { label: 'Carbon', value: 'carbon' },
+    { label: 'Material Design', value: 'mdi' },
+    { label: 'Tabler', value: 'tabler' },
+    { label: 'Remix', value: 'ri' },
+  ],
 });
 
 const emit = defineEmits<{
   change: [string];
+  'update:prefix': [string];
 }>();
 
 const attrs = useAttrs();
 
 const modelValue = defineModel({ default: '', type: String });
+const prefixValue = ref(props.prefix);
+
+// 监听第一次有效值，自动推断 prefix。watch返回的是stop函数
+const stopInitWatch = watch(
+  modelValue,
+  (v) => {
+    if (v?.includes(':')) {
+      prefixValue.value = v.split(':')[0];
+      stopInitWatch(); // 只执行一次，之后不再干预用户的手动切换
+    }
+  },
+  { immediate: true },
+);
 
 const visible = ref(false);
 const currentSelect = ref('');
@@ -76,7 +106,7 @@ const keywordDebounce = refDebounced(keyword, 300);
 const innerIcons = ref<string[]>([]);
 
 watchDebounced(
-  () => props.prefix,
+  prefixValue,
   async (prefix) => {
     if (prefix && prefix !== 'svg' && props.autoFetchApi) {
       innerIcons.value = await fetchIconsData(prefix);
@@ -87,17 +117,17 @@ watchDebounced(
 
 const currentList = computed(() => {
   try {
-    if (props.prefix) {
+    if (prefixValue.value) {
       if (
-        props.prefix !== 'svg' &&
+        prefixValue.value !== 'svg' &&
         props.autoFetchApi &&
         props.icons.length === 0
       ) {
         return innerIcons.value;
       }
-      const icons = listIcons('', props.prefix);
+      const icons = listIcons('', prefixValue.value);
       if (icons.length === 0) {
-        console.warn(`No icons found for prefix: ${props.prefix}`);
+        console.warn(`No icons found for prefix: ${prefixValue.value}`);
       }
       return icons;
     } else {
@@ -130,6 +160,18 @@ watch(
     emit('change', v);
   },
 );
+
+// 父组件传入新值时同步
+watch(() => props.prefix, (v) => {
+  prefixValue.value = v;
+});
+
+// 切换图标集时重置搜索词和分页，避免残留状态
+watch(prefixValue, (v) => {
+  keyword.value = '';
+  setCurrentPage(1);
+  emit('update:prefix', v);
+});
 
 const handleClick = (icon: string) => {
   currentSelect.value = icon;
@@ -232,6 +274,20 @@ defineExpose({ toggleOpenState, open, close });
       />
     </template>
     <div class="mb-2 flex w-full">
+      <Select v-model="prefixValue">
+        <SelectTrigger class="ml-2 h-8 w-32 px-2">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem
+            v-for="item in props.prefixes"
+            :key="item.value"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </SelectItem>
+        </SelectContent>
+      </Select>
       <component
         v-if="inputComponent"
         :is="inputComponent"

@@ -1,12 +1,19 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
 import type {
+  AppRouteRecordRaw,
   ExRouteRecordRaw,
   MenuRecordRaw,
   RouteMeta,
+  RouteRecordStringComponent,
 } from '@vben-core/typings';
 
-import { filterTree, mapTree, sortTree } from '@vben-core/shared/utils';
+import {
+  filterTree,
+  isHttpUrl,
+  mapTree,
+  sortTree,
+} from '@vben-core/shared/utils';
 
 /**
  * 根据 routes 生成菜单列表

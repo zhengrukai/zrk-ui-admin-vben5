@@ -8,21 +8,39 @@
     "alreadyExists": "{0} `{1}` 已存在",
     "startWith": "{0}必须以 {1} 开头",
     "invalidURL": "请输入有效的链接",
+    "mobile": "请输入正确的{0}",
     "sizeLimit": "文件大小不能超过 {0}MB",
     "previewWarning": "无法打开文件，没有可用的URL或预览地址"
   },
   "actionTitle": {
+    "copy": "复制{0}",
+    "cancel": "取消{0}",
     "edit": "修改{0}",
     "create": "新增{0}",
     "delete": "删除{0}",
-    "view": "查看{0}"
+    "deleteBatch": "批量删除",
+    "detail": "详情{0}",
+    "view": "查看{0}",
+    "import": "导入",
+    "export": "导出"
   },
   "actionMessage": {
     "deleteConfirm": "确定删除 {0} 吗？",
+    "deleteBatchConfirm": "确定删除所选项吗？",
     "deleting": "正在删除 {0} ...",
+    "deletingBatch": "正在删除所选项 ...",
     "deleteSuccess": "{0} 删除成功",
+    "deleteFailed": "{0} 删除失败",
     "operationSuccess": "操作成功",
-    "operationFailed": "操作失败"
+    "operationFailed": "操作失败",
+    "importSuccess": "导入成功",
+    "importFail": "导入失败",
+    "downloadTemplateFail": "下载模板失败",
+    "updating": "正在更新 {0}...",
+    "updateSuccess": "更新 {0} 成功",
+    "updateFailed": "更新 {0} 失败",
+    "closing": "正在关闭 {0} ...",
+    "closeSuccess": "{0} 关闭成功"
   },
   "placeholder": {
     "input": "请输入",
@@ -84,6 +102,7 @@
   },
   "widgets": {
     "document": "文档",
+    "profile": "个人中心",
     "qa": "问题 & 帮助",
     "setting": "设置",
     "logoutTip": "是否退出登录？",
@@ -117,5 +136,32 @@
       "setTimezone": "设置时区",
       "setSuccess": "时区设置成功"
     }
+  },
+  "upload": {
+    "upload": "上传",
+    "imgUpload": "图片上传",
+    "accept": "支持{0}格式",
+    "acceptUpload": "只能上传{0}格式文件",
+    "maxSize": "单个文件不超过{0}MB",
+    "maxSizeMultiple": "只能上传不超过{0}MB的文件!",
+    "maxNumber": "最多只能上传{0}个文件",
+    "uploadSuccess": "上传成功",
+    "uploadError": "上传失败",
+    "imgUploading": "图片发送中，请稍等。。。"
+  },
+  "cropper": {
+    "selectImage": "选择图片",
+    "uploadSuccess": "上传成功",
+    "imageTooBig": "图片超限",
+    "modalTitle": "头像上传",
+    "okText": "确认并上传",
+    "btn_reset": "重置",
+    "btn_rotate_left": "逆时针旋转",
+    "btn_rotate_right": "顺时针旋转",
+    "btn_scale_x": "水平翻转",
+    "btn_scale_y": "垂直翻转",
+    "btn_zoom_in": "放大",
+    "btn_zoom_out": "缩小",
+    "preview": "预览"
   }
 }

@@ -29,11 +29,9 @@ const props = withDefaults(defineProps<Props>(), {
   forgetPasswordPath: '/auth/forget-password',
   formSchema: () => [],
   loading: false,
-  qrCodeLoginPath: '/auth/qrcode-login',
   registerPath: '/auth/register',
   showCodeLogin: true,
   showForgetPassword: true,
-  showQrcodeLogin: true,
   showRegister: true,
   showRememberMe: true,
   showThirdPartyLogin: true,
@@ -155,7 +153,7 @@ defineExpose({
     </VbenButton>
 
     <div
-      v-if="showCodeLogin || showQrcodeLogin"
+      v-if="showCodeLogin"
       class="mb-2 mt-4 flex items-center justify-between"
     >
       <VbenButton
@@ -165,14 +163,6 @@ defineExpose({
         @click="handleGo(codeLoginPath)"
       >
         {{ $t('authentication.mobileLogin') }}
-      </VbenButton>
-      <VbenButton
-        v-if="showQrcodeLogin"
-        class="ml-4 w-1/2"
-        variant="outline"
-        @click="handleGo(qrCodeLoginPath)"
-      >
-        {{ $t('authentication.qrcodeLogin') }}
       </VbenButton>
     </div>
 

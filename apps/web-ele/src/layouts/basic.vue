@@ -3,8 +3,7 @@ import type { NotificationItem } from '@vben/layouts';
 
 import type { SystemTenantApi } from '#/api/system/tenant';
 
-import { computed, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import { useAccess } from '@vben/access';
 import { AuthenticationLoginExpiredModal, useVbenModal } from '@vben/common-ui';
@@ -14,7 +13,7 @@ import {
   AntdProfileOutlined,
   BookOpenText,
   CircleHelp,
-  SvgGithubIcon
+  SvgGithubIcon,
 } from '@vben/icons';
 import {
   BasicLayout,
@@ -41,8 +40,6 @@ import { $t } from '#/locales';
 import { router } from '#/router';
 import { useAuthStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
-
-const router = useRouter();
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
