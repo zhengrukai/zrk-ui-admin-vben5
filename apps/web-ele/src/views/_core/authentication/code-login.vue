@@ -24,7 +24,7 @@ const accessStore = useAccessStore();
 const tenantEnable = isTenantEnable();
 
 const loading = ref(false);
-const CODE_LENGTH = 4;
+const CODE_LENGTH = 6;
 
 const loginRef = ref();
 

@@ -38,9 +38,9 @@ function handleThirdLogin(type: number) {
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
-      <VbenIconButton class="mb-3" @click="handleThirdLogin(30)">
-        <SvgWeChatIcon />
-      </VbenIconButton>
+<!--      <VbenIconButton class="mb-3" @click="handleThirdLogin(30)">-->
+<!--        <SvgWeChatIcon />-->
+<!--      </VbenIconButton>-->
       <VbenIconButton class="mb-3" @click="handleThirdLogin(20)">
         <SvgDingDingIcon />
       </VbenIconButton>

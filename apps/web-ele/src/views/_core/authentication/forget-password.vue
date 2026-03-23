@@ -24,7 +24,7 @@ const router = useRouter();
 const tenantEnable = isTenantEnable();
 
 const loading = ref(false);
-const CODE_LENGTH = 4;
+const CODE_LENGTH = 6;
 const forgetPasswordRef = ref();
 
 /** 获取租户列表，并默认选中 */
