@@ -56,4 +56,10 @@ export const SystemUserSocialTypeEnum = {
     source: 'wechat_enterprise',
     img: 'https://s1.ax1x.com/2022/05/22/OzMrzn.png',
   },
+  GITHUB: {
+    title: 'Github',
+    type: 50,
+    source: 'github',
+    img: 'https://s41.ax1x.com/2026/03/23/peKarIU.png',
+  },
 };

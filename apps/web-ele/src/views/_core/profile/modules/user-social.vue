@@ -68,7 +68,7 @@ function useGridColumns(): VxeTableGridOptions['columns'] {
       slots: {
         default: ({ row }: { row: SystemSocialUserApi.SocialUser }) => {
           return (
-            <ElButton onClick={() => onUnbind(row)} type="text">
+            <ElButton onClick={() => onUnbind(row)} link>
               解绑
             </ElButton>
           );
@@ -193,7 +193,7 @@ onMounted(() => {
               <ElButton
                 :disabled="!!item.socialUser"
                 size="small"
-                type="text"
+                link
                 @click="onBind(item)"
               >
                 {{ item.socialUser ? '已绑定' : '绑定' }}
