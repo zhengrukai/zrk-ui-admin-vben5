@@ -104,7 +104,6 @@ async function handleThirdLogin(type: number) {
     }/auth/social-login?${encodeURIComponent(
       `type=${type}&redirect=${redirect || '/'}`,
     )}`;
-
     // 进行跳转
     window.location.href = await socialAuthRedirect(type, redirectUri);
   } catch (error) {

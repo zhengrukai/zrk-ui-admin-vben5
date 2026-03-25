@@ -19,7 +19,7 @@ defineProps<{
         <KeepAlive :include="['Login']">
           <component
             :is="Component"
-            :key="route.fullPath"
+            :key="route.name"
             class="side-content mt-6 w-full sm:mx-auto md:max-w-md"
             :data-side="dataSide"
           />

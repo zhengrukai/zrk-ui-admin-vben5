@@ -63,7 +63,7 @@ async function fetchTenantList() {
 
     // 设置选中的租户编号
     accessStore.setTenantId(tenantId);
-    loginRef.value.getFormApi().setFieldValue('tenantId', tenantId);
+    loginRef.value.getFormApi().setFieldValue('tenantId', tenantId?.toString());
   } catch (error) {
     console.error('获取租户列表失败:', error);
   }
@@ -84,7 +84,7 @@ async function tryLogin() {
       },
     });
   }
-
+  // if (authStore.loginLoading) return;
   // 尝试登录
   await authStore.authLogin('social', {
     type: socialType,
