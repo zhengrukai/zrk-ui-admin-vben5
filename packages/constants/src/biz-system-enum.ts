@@ -62,4 +62,10 @@ export const SystemUserSocialTypeEnum = {
     source: 'github',
     img: 'https://s41.ax1x.com/2026/03/23/peKarIU.png',
   },
+  QQ: {
+    title: 'QQ',
+    type: 35,
+    source: 'qq',
+    img: 'https://s41.ax1x.com/2026/03/25/peQKLNR.jpg',
+  },
 };

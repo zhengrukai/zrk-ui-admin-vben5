@@ -44,7 +44,7 @@ function handleThirdLogin(type: number) {
       <VbenIconButton class="mb-3" @click="handleThirdLogin(20)">
         <SvgDingDingIcon />
       </VbenIconButton>
-      <VbenIconButton class="mb-3" @click="handleThirdLogin(0)">
+      <VbenIconButton class="mb-3" @click="handleThirdLogin(35)">
         <SvgQQChatIcon />
       </VbenIconButton>
       <VbenIconButton class="mb-3" @click="handleThirdLogin(50)">
