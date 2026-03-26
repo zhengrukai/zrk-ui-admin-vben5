@@ -117,7 +117,7 @@ export function useFormSchema(): VbenFormSchema[] {
 /** 列表的字段 */
 export function useGridColumns(): VxeTableGridOptions<SystemDeptApi.Dept>['columns'] {
   return [
-    { type: 'checkbox', width: 40 },
+    { type: 'checkbox', width: 40, fixed: 'left' },
     {
       field: 'name',
       title: '部门名称',
