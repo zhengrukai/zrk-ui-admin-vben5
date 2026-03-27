@@ -24,7 +24,6 @@ const ElAutoComplete = defineAsyncComponent(() =>
     import('element-plus/es/components/autocomplete/style/css'),
   ]).then(([res]) => res.ElAutocomplete),
 );
-
 const ElButton = defineAsyncComponent(() =>
   Promise.all([
     import('element-plus/es/components/button/index'),
@@ -72,6 +71,12 @@ const ElInputNumber = defineAsyncComponent(() =>
     import('element-plus/es/components/input-number/index'),
     import('element-plus/es/components/input-number/style/css'),
   ]).then(([res]) => res.ElInputNumber),
+);
+const ElInputTag = defineAsyncComponent(() =>
+  Promise.all([
+    import('element-plus/es/components/input-tag/index'),
+    import('element-plus/es/components/input-tag/style/css'),
+  ]).then(([res]) => res.ElInputTag),
 );
 const ElRadio = defineAsyncComponent(() =>
   Promise.all([
@@ -268,7 +273,8 @@ async function initComponentAdapter() {
     },
     // 自定义默认按钮
     DefaultButton: (props, { attrs, slots }) => {
-      return h(ElButton, { ...props, attrs, type: 'info' }, slots);
+      // 调整 type 为 default ，info 有点丑
+      return h(ElButton, { ...props, attrs, type: 'default' }, slots);
     },
     // 自定义主要按钮
     PrimaryButton: (props, { attrs, slots }) => {
@@ -282,6 +288,7 @@ async function initComponentAdapter() {
     }),
     Input: withDefaultPlaceholder(ElInput, 'input'),
     InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
+    InputTag: withDefaultPlaceholder(ElInputTag, 'input'),
     RadioGroup: (props, { attrs, slots }) => {
       let defaultSlot;
       if (Reflect.has(slots, 'default')) {
