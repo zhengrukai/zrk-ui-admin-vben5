@@ -70,6 +70,7 @@ const props = withDefaults(defineProps<Props>(), {
     { label: 'Ant Design', value: 'ant-design' },
     { label: 'Element Plus', value: 'ep' },
     { label: 'Font Awesome', value: 'fa' },
+    { label: 'Font Awesome Solid', value: 'fa-solid' },
     { label: 'Carbon', value: 'carbon' },
     { label: 'Material Design', value: 'mdi' },
     { label: 'Tabler', value: 'tabler' },
