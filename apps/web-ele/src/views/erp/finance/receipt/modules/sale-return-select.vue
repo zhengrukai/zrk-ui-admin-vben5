@@ -2,7 +2,7 @@
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import type { ErpSaleReturnApi } from '#/api/erp/sale/return';
 
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 
 import { ElButton, ElDialog, ElMessage } from 'element-plus';
 
@@ -69,12 +69,13 @@ const [Grid, gridApi] = useVbenVxeGrid({
 });
 
 /** 打开弹窗 */
-function openModal(id: number) {
+async function openModal(id: number) {
   // 重置数据
   customerId.value = id;
   open.value = true;
   selectedRows.value = [];
-  // 查询列表
+  // 等待 Grid 挂载完成后再操作 formApi
+  await nextTick();
   gridApi.formApi?.resetForm();
   gridApi.formApi?.setValues({ customerId: id });
   gridApi.query();

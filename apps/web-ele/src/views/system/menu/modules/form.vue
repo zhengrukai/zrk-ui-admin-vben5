@@ -5,7 +5,7 @@ import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
-import { ElMessage } from 'element-plus';
+import {ElButton, ElMessage} from 'element-plus';
 
 import { useVbenForm } from '#/adapter/form';
 import { createMenu, getMenu, updateMenu } from '#/api/system/menu';
@@ -34,23 +34,29 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
 });
 
+/** 提交表单（公共逻辑） */
+async function submitForm(): Promise<boolean> {
+  const { valid } = await formApi.validate();
+  if (!valid) {
+    return false;
+  }
+  modalApi.lock();
+  const data = (await formApi.getValues()) as SystemMenuApi.Menu;
+  try {
+    await (formData.value?.id ? updateMenu(data) : createMenu(data));
+    emit('success');
+    ElMessage.success($t('ui.actionMessage.operationSuccess'));
+    return true;
+  } finally {
+    modalApi.unlock();
+  }
+}
+
 const [Modal, modalApi] = useVbenModal({
   async onConfirm() {
-    const { valid } = await formApi.validate();
-    if (!valid) {
-      return;
-    }
-    modalApi.lock();
-    // 提交表单
-    const data = (await formApi.getValues()) as SystemMenuApi.Menu;
-    try {
-      await (formData.value?.id ? updateMenu(data) : createMenu(data));
-      // 关闭并提示
+    const saved = await submitForm();
+    if (saved) {
       await modalApi.close();
-      emit('success');
-      ElMessage.success($t('ui.actionMessage.operationSuccess'));
-    } finally {
-      modalApi.unlock();
     }
   },
   async onOpenChange(isOpen: boolean) {
@@ -75,10 +81,28 @@ const [Modal, modalApi] = useVbenModal({
     }
   },
 });
+
+/** 保存后新增 */
+async function handleSaveAndAdd() {
+  const saved = await submitForm();
+  if (saved) {
+    // 保存成功后重置表单，保留上级菜单、类型、排序方便连续新增
+    const values = (await formApi.getValues()) as SystemMenuApi.Menu;
+    const { parentId, type, sort } = values;
+    formData.value = undefined;
+    await formApi.resetForm();
+    await formApi.setValues({ parentId, type, sort: (sort ?? 0) + 1 });
+  }
+}
 </script>
 
 <template>
   <Modal class="w-2/5" :title="getTitle">
     <Form class="mx-4" />
+    <template #append-footer>
+      <div class="flex">
+        <ElButton @click="handleSaveAndAdd"> 保存后新增 </ElButton>
+      </div>
+    </template>
   </Modal>
 </template>

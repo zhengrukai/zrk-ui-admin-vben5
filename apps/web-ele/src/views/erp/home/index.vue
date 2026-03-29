@@ -20,13 +20,6 @@ const purchaseChartRef = ref();
 
 <template>
   <Page>
-    <template #doc>
-      <DocAlert
-        title="ERP 手册（功能开启）"
-        url="https://doc.iocoder.cn/erp/build/"
-      />
-    </template>
-
     <div v-loading="loading" class="flex flex-col gap-4">
       <!-- 销售/采购的全局统计 -->
       <SummaryCard />

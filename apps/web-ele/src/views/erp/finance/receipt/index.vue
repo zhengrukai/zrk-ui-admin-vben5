@@ -132,13 +132,6 @@ const [Grid, gridApi] = useVbenVxeGrid({
 
 <template>
   <Page auto-content-height>
-    <template #doc>
-      <DocAlert
-        title="【财务】采购付款、销售收款"
-        url="https://doc.iocoder.cn/sale/finance-payment-receipt/"
-      />
-    </template>
-
     <FormModal @success="handleRefresh" />
     <Grid table-title="收款单列表">
       <template #toolbar-tools>

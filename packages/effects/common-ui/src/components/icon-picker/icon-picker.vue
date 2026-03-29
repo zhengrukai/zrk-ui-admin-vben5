@@ -71,6 +71,7 @@ const props = withDefaults(defineProps<Props>(), {
     { label: 'Element Plus', value: 'ep' },
     { label: 'Font Awesome', value: 'fa' },
     { label: 'Font Awesome Solid', value: 'fa-solid' },
+    { label: 'Simple Icons', value: 'simple-icons' },
     { label: 'Carbon', value: 'carbon' },
     { label: 'Material Design', value: 'mdi' },
     { label: 'Tabler', value: 'tabler' },

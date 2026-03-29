@@ -29,17 +29,8 @@ const userStore = useUserStore();
 // 例如：url: /dashboard/workspace
 const projectItems: WorkbenchProjectItem[] = [
   {
-    color: '#ff4d4f',
-    content: 'github.com/zhengrukai/zrk-mall-uniapp',
-    date: '2026-xx-xx',
-    group: 'Vue3 + uniapp 商城手机端',
-    icon: 'icon-park-outline:mall-bag',
-    title: 'zrk-mall-uniapp',
-    url: 'github.com/zhengrukai/zrk-mall-uniapp',
-  },
-  {
     color: '#1890ff',
-    content: 'github.com/zhengrukai/zrk-cloud',
+    content: '',
     date: '2026-01-01',
     group: 'Spring Cloud 微服务架构',
     icon: 'material-symbols:cloud-outline',
@@ -48,7 +39,7 @@ const projectItems: WorkbenchProjectItem[] = [
   },
   {
     color: '#e18525',
-    content: 'github.com/zhengrukai/zrk-ui-admin-vben5',
+    content: '',
     date: '2026-03-01',
     group: 'Vue3 + vben5 管理后台',
     icon: 'devicon:antdesign',
@@ -57,13 +48,40 @@ const projectItems: WorkbenchProjectItem[] = [
   },
   {
     color: '#2979ff',
-    content: 'github.com/zhengrukai/zrk-ui-admin-uniapp',
+    content: '',
     date: '2026-xx-xx',
     group: 'Vue3 + uniapp 管理手机端',
     icon: 'ant-design:mobile',
     title: 'zrk-ui-admin-uniapp',
     url: 'https://github.com/zhengrukai/zrk-ui-admin-uniapp',
   },
+  {
+    color: '#ff4d4f',
+    content: '',
+    date: '2026-xx-xx',
+    group: 'Vue3 + uniapp 商城手机端',
+    icon: 'icon-park-outline:mall-bag',
+    title: 'zrk-mall-uniapp',
+    url: 'https://github.com/zhengrukai/zrk-mall-uniapp',
+  },
+  {
+    color: '#ff4d4f',
+    content: '',
+    date: '2026-xx-xx',
+    group: 'XXX',
+    icon: 'icon-park-outline:mall-bag',
+    title: 'XXX',
+    url: 'https://github.com/zhengrukai/',
+  },
+  {
+    color: '#ff4d4f',
+    content: '',
+    date: '2026-xx-xx',
+    group: 'XXX',
+    icon: 'icon-park-outline:mall-bag',
+    title: 'XXX',
+    url: 'https://github.com/zhengrukai/',
+  }
 ];
 
 // 同样，这里的 url 也可以使用以 http 开头的外部链接
@@ -118,69 +136,63 @@ const todoItems = ref<WorkbenchTodoItem[]>([
     content: `后端提供 Spring Boot 3.2 + Cloud 双架构`,
     date: '2026-03-14 09:30:00',
     title: '架构灵活性',
-  },
-  {
-    completed: false,
-    content: `全部开源，个人与企业可 100% 直接使用，无需授权`,
-    date: '2026-03-14 09:30:00',
-    title: '开源免授权',
   }
 ]);
 const trendItems: WorkbenchTrendItem[] = [
-  {
-    avatar: 'svg:avatar-1',
-    content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
-    date: '刚刚',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-2',
-    content: `关注了 <a>威廉</a> `,
-    date: '1个小时前',
-    title: '艾文',
-  },
-  {
-    avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1天前',
-    title: '克里斯',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写一个Vite插件</a> `,
-    date: '2天前',
-    title: 'Vben',
-  },
-  {
-    avatar: 'svg:avatar-1',
-    content: `回复了 <a>杰克</a> 的问题 <a>如何进行项目优化？</a>`,
-    date: '3天前',
-    title: '皮特',
-  },
-  {
-    avatar: 'svg:avatar-2',
-    content: `关闭了问题 <a>如何运行项目</a> `,
-    date: '1周前',
-    title: '杰克',
-  },
-  {
-    avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1周前',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `推送了代码到 <a>Github</a>`,
-    date: '2021-04-01 20:00',
-    title: '威廉',
-  },
-  {
-    avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写使用 Admin Vben</a> `,
-    date: '2021-03-01 20:00',
-    title: 'Vben',
-  },
+  // {
+  //   avatar: 'svg:avatar-1',
+  //   content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
+  //   date: '刚刚',
+  //   title: '威廉',
+  // },
+  // {
+  //   avatar: 'svg:avatar-2',
+  //   content: `关注了 <a>威廉</a> `,
+  //   date: '1个小时前',
+  //   title: '艾文',
+  // },
+  // {
+  //   avatar: 'svg:avatar-3',
+  //   content: `发布了 <a>个人动态</a> `,
+  //   date: '1天前',
+  //   title: '克里斯',
+  // },
+  // {
+  //   avatar: 'svg:avatar-4',
+  //   content: `发表文章 <a>如何编写一个Vite插件</a> `,
+  //   date: '2天前',
+  //   title: 'Vben',
+  // },
+  // {
+  //   avatar: 'svg:avatar-1',
+  //   content: `回复了 <a>杰克</a> 的问题 <a>如何进行项目优化？</a>`,
+  //   date: '3天前',
+  //   title: '皮特',
+  // },
+  // {
+  //   avatar: 'svg:avatar-2',
+  //   content: `关闭了问题 <a>如何运行项目</a> `,
+  //   date: '1周前',
+  //   title: '杰克',
+  // },
+  // {
+  //   avatar: 'svg:avatar-3',
+  //   content: `发布了 <a>个人动态</a> `,
+  //   date: '1周前',
+  //   title: '威廉',
+  // },
+  // {
+  //   avatar: 'svg:avatar-4',
+  //   content: `推送了代码到 <a>Github</a>`,
+  //   date: '2021-04-01 20:00',
+  //   title: '威廉',
+  // },
+  // {
+  //   avatar: 'svg:avatar-4',
+  //   content: `发表文章 <a>如何编写使用 Admin Vben</a> `,
+  //   date: '2021-03-01 20:00',
+  //   title: 'Vben',
+  // },
 ];
 
 const router = useRouter();

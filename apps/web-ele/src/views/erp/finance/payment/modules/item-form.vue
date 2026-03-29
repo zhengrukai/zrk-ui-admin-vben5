@@ -14,7 +14,7 @@ import { TableAction, useVbenVxeGrid } from '#/adapter/vxe-table';
 
 import { useFormItemColumns } from '../data';
 import PurchaseInSelect from './purchase-in-select.vue';
-import SaleReturnSelect from './sale-return-select.vue';
+import PurchaseReturnSelect from './purchase-return-select.vue';
 
 interface Props {
   items?: ErpFinancePaymentApi.FinancePaymentItem[];
@@ -128,7 +128,7 @@ const handleOpenPurchaseIn = () => {
 
 const handleAddPurchaseIn = (rows: ErpPurchaseInApi.PurchaseIn[]) => {
   rows.forEach((row) => {
-    // TODO @芋艿
+    // TODO
     const newItem: ErpFinancePaymentApi.FinancePaymentItem = {
       bizId: row.id,
       bizType: ErpBizType.PURCHASE_IN,
@@ -144,13 +144,13 @@ const handleAddPurchaseIn = (rows: ErpPurchaseInApi.PurchaseIn[]) => {
 };
 
 /** 添加采购退货单 */
-const saleReturnSelectRef = ref();
+const purchaseReturnSelectRef = ref();
 const handleOpenSaleReturn = () => {
   if (!props.supplierId) {
     ElMessage.error('请选择供应商');
     return;
   }
-  saleReturnSelectRef.value?.open(props.supplierId);
+  purchaseReturnSelectRef.value?.open(props.supplierId);
 };
 
 const handleAddSaleReturn = (rows: ErpPurchaseReturnApi.PurchaseReturn[]) => {
@@ -203,8 +203,13 @@ const validate = () => {
   // 检查每行的付款金额
   for (let i = 0; i < tableData.value.length; i++) {
     const item = tableData.value[i];
-    if (!item.paymentPrice || item.paymentPrice <= 0) {
-      throw new Error(`第 ${i + 1} 行：本次付款必须大于0`);
+    if (!item.paymentPrice) {
+      if (item.bizType === ErpBizType.PURCHASE_IN && item.paymentPrice <= 0) {
+        throw new Error(`第 ${i + 1} 行：本次付款必须大于0`);
+      }
+      if (item.bizType === ErpBizType.PURCHASE_RETURN && item.paymentPrice >= 0) {
+        throw new Error(`第 ${i + 1} 行：本次付款必须小于0`);
+      }
     }
   }
 };
@@ -294,8 +299,8 @@ defineExpose({ validate });
       @success="handleAddPurchaseIn"
     />
     <!-- 采购退货单选择组件 -->
-    <SaleReturnSelect
-      ref="saleReturnSelectRef"
+    <PurchaseReturnSelect
+      ref="purchaseReturnSelectRef"
       @success="handleAddSaleReturn"
     />
   </div>
