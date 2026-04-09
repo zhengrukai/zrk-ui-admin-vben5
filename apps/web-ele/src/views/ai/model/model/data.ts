@@ -143,7 +143,7 @@ export function useFormSchema(): VbenFormSchema[] {
       component: 'InputNumber',
       componentProps: {
         min: 0,
-        max: 20,
+        max: 65536,
         placeholder: '请输入上下文数量',
         controlsPosition: 'right',
         class: '!w-full',

@@ -13,10 +13,6 @@ const activeTabName = ref('conversation');
 
 <template>
   <Page auto-content-height>
-    <template #doc>
-      <DocAlert title="AI 对话聊天" url="https://doc.iocoder.cn/ai/chat/" />
-    </template>
-
     <ElTabs v-model:model-value="activeTabName">
       <ElTabs.TabPane label="对话列表" name="conversation">
         <ChatConversationList />

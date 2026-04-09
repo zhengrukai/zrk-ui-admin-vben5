@@ -55,8 +55,8 @@ const categoryList = ref<string[]>([]); // 角色分类类别
 
 /** tabs 点击 */
 async function handleTabsClick(tab: any) {
-  // 设置切换状态
-  activeTab.value = tab;
+  // Element Plus 的 tab-click 事件触发时 v-model 还未更新，需要手动同步
+  activeTab.value = tab.paneName;
   // 切换的时候重新加载数据
   await getActiveTabsRole();
 }
